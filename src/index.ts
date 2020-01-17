@@ -1,4 +1,5 @@
 import express from 'express';
+import userRouter from './routes/userRoutes'
 
 const app = express();
 
@@ -6,6 +7,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.listen(3000, ()=>{
+//Routes
+app.use(userRouter);
+
+app.listen(3000, ()=> {
     console.log('Server on port', 3000);
-})
+});
