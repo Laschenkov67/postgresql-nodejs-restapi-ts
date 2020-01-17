@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { pool } from '../database';
 import { QueryResult } from 'pg';
 
+//Получить список всех пользователей
 export const getUsers = async (req: Request, res: Response): Promise<Response> => {
     try {
         const response: QueryResult = await
@@ -13,3 +14,9 @@ export const getUsers = async (req: Request, res: Response): Promise<Response> =
     }
 };
 
+//Получить данные о конкретном пользователе
+export const getUserById = async (req: Request, res: Response): Promise<Response> => {
+    const id = parseInt(req.params.id);
+    const response: QueryResult = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    return res.json(response.rows);
+};
